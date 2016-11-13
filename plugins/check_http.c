@@ -1199,7 +1199,7 @@ check_http (void)
   if (show_extended_perfdata)
     xasprintf (&msg,
            _("%s::header==%s__code==%d__bytes==%d__time==%.3f__state==%d__warn==%.0f %s|%s %s %s %s %s %s %s"),
-           strstr(msg, "pattern") == NULL ? "http.main_response" : "http.cri_pattern",
+           (strstr(msg, "pattern") || strstr(msg, "string")) ? "http.cri_pattern" : "http.main_response",
            msg, http_status, page_len, elapsed_time, result, thlds->warning?thlds->warning->end:1000,
            (display_html ? "</A>" : ""),
            perfd_time (elapsed_time),
@@ -1212,7 +1212,7 @@ check_http (void)
   else
     xasprintf (&msg,
            _("%s::header==%s__code==%d__bytes==%d__time==%.3f__state==%d__warn==%.0f %s|%s %s"),
-           strstr(msg, "pattern") == NULL ? "http.main_response" : "http.cri_pattern",
+           strstr(msg, "pattern") || strstr(msg, "string") ? "http.cri_pattern" : "http.main_response",
            msg, http_status, page_len, elapsed_time, result, thlds->warning?thlds->warning->end:1000,
            (display_html ? "</A>" : ""),
            perfd_time (elapsed_time),
